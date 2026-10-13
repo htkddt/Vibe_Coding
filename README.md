@@ -38,8 +38,8 @@
 ### Local development
 
 - Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API. Reopen the terminal after upgrading Node.js so that `node --version` reports the new release.
-- The frontend development server uses port `5173`; the backend uses port `3000`. Make sure both ports are available before starting the services.
-- The chatbot service is intentionally not runnable yet; its delivery plan is in `chatbot/README.md`.
+- The frontend development server uses port `5173`, the backend uses port `3000`. Make sure both ports are available before starting the services.
+- The chatbot service is intentionally not runnable yet, its delivery plan is in `chatbot/README.md`.
 
 ### Build
 
