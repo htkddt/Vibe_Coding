@@ -2,12 +2,14 @@
 
 ## Purpose
 
-This directory contains the React single-page web application for 179FC_MMS. It is currently a minimal Vite and TypeScript scaffold with a landing screen that confirms the client is running.
+This directory contains the React single-page web application for 179FC_MMS. It is currently a minimal Vite scaffold written in JavaScript and JSX, with CSS for styling and a landing screen that confirms the client is running.
 
 ## Stack
 
 - React
-- TypeScript
+- JavaScript
+- JSX (`.jsx`)
+- CSS
 - Vite
 
 ## Directory Structure
@@ -15,13 +17,12 @@ This directory contains the React single-page web application for 179FC_MMS. It 
 ~~~text
 frontend/
 ├── src/
-│   ├── App.tsx          # Temporary application entry screen
-│   ├── main.tsx         # React bootstrap
+│   ├── App.jsx          # Temporary application entry screen
+│   ├── main.jsx         # React bootstrap
 │   └── styles.css       # Global styles
 ├── index.html
 ├── package.json
-├── tsconfig.json
-└── vite.config.ts
+└── vite.config.js
 ~~~
 
 ## Run Locally

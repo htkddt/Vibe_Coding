@@ -20,7 +20,7 @@
 
 | Area | Technology | Status |
 | --- | --- | --- |
-| Web client | React, TypeScript, Vite | Initial scaffold |
+| Web client | React, JavaScript, JSX, CSS, Vite | Initial scaffold |
 | API | NestJS, TypeScript | Initial scaffold |
 | Virtual assistant | Python, FastAPI | Planned |
 | Testing | Component-specific test suites under `tests/` | Planned |
@@ -37,7 +37,7 @@
 
 ### Local development
 
-- Use a supported Node.js release: 20.19+ (or 22.12+) for the React client, and 20.11+ for the NestJS API.
+- Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API.
 - Run the React client from `frontend/` with `npm install` and `npm run dev`.
 - Run the NestJS API from `backend/` with `npm install` and `npm run start:dev`.
 - The chatbot service is intentionally not runnable yet; its delivery plan is in `chatbot/README.md`.
@@ -57,7 +57,7 @@
 
 | Workstream | Planning | Foundation | Feature Development | Test Coverage | Current Result |
 | --- | --- | --- | --- | --- | --- |
-| Frontend | Complete | Complete | Not started | Planned | React, Vite, and TypeScript application shell |
+| Frontend | Complete | Complete | Not started | Planned | React, JavaScript/JSX, CSS, and Vite application shell |
 | Backend | Complete | Complete | Not started | Planned | NestJS API shell with `GET /health` |
 | Chatbot | Complete | Not started | Not started | Planned | FastAPI delivery plan |
 | Designs | Complete | Not started | Not started | Not started | Asset and handoff plan |
