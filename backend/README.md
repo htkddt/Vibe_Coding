@@ -28,13 +28,16 @@ backend/
 ## Run Locally
 
 ~~~bash
-npm install
+npm ci
+npm run build
 npm run start:dev
 ~~~
 
-The development server listens on `http://localhost:3000` by default. Confirm availability at `GET /health`.
-
-The scaffold requires Node.js 20.11 or newer.
+- The development server listens on `http://localhost:3000` by default, confirm availability at `GET /health`.
+- The scaffold requires Node.js 20.11 or newer.
+- The Nest CLI currently requires TypeScript 6, which is pinned in `package.json`.
+- Use the committed `package-lock.json` for repeatable installs.
+- The API uses Nest's `ValidationPipe`, so `class-transformer` and `class-validator` are runtime dependencies.
 
 ## Planned Flow
 

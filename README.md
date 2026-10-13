@@ -37,10 +37,59 @@
 
 ### Local development
 
-- Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API.
-- Run the React client from `frontend/` with `npm install` and `npm run dev`.
-- Run the NestJS API from `backend/` with `npm install` and `npm run start:dev`.
+- Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API. Reopen the terminal after upgrading Node.js so that `node --version` reports the new release.
+- The frontend development server uses port `5173`; the backend uses port `3000`. Make sure both ports are available before starting the services.
 - The chatbot service is intentionally not runnable yet; its delivery plan is in `chatbot/README.md`.
+
+### Build
+
+- Frontend
+
+   ~~~powershell
+   cd frontend
+   npm ci
+   npm run build
+   ~~~
+
+- Backend
+
+   ~~~powershell
+   cd backend
+   npm ci
+   npm run build
+   ~~~
+
+### Run
+
+- Frontend
+
+   ~~~powershell
+   npm run dev -- --host 127.0.0.1 --port 5173
+   ~~~
+   Open: `http://127.0.0.1:5173/`
+
+- Backend
+
+   ~~~powershell
+   npm run start:dev
+   ~~~
+
+### Test
+
+- Frontend
+
+   ~~~powershell
+   npm run preview -- --host 127.0.0.1 --port 4173
+   ~~~
+   Open: `http://127.0.0.1:4173/`
+
+- Backend
+
+   ~~~powershell
+   Invoke-WebRequest http://127.0.0.1:3000/health -UseBasicParsing
+   ~~~
+
+   A healthy API returns status `200` and the JSON body `{"service":"179fc-mms-backend","status":"ok"}`.
 
 ### Documentation rule
 
