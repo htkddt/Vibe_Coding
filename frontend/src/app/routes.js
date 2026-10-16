@@ -1,0 +1,29 @@
+export const ROUTES = {
+  signIn: '/sign-in',
+  dashboard: '/dashboard',
+  posts: '/posts',
+  employees: '/employees',
+  organization: '/organization',
+  settings: '/settings',
+  help: '/help',
+  assistant: '/assistant',
+};
+
+export const NAV_ITEMS = [
+  { label: 'Dashboard', icon: 'dashboard', to: ROUTES.dashboard },
+  { label: 'Posts', icon: 'posts', to: ROUTES.posts },
+  { label: 'Employees', icon: 'employees', to: ROUTES.employees },
+  { label: 'Organization', icon: 'organization', to: ROUTES.organization },
+  { label: 'Settings', icon: 'settings', to: ROUTES.settings },
+  { label: 'Help', icon: 'help', to: ROUTES.help },
+];
+
+export const PAGE_META = {
+  [ROUTES.dashboard]: { title: 'Dashboard', subtitle: 'Monday, 13 October 2026' },
+  [ROUTES.posts]: { title: 'Posts', subtitle: 'Monday, 13 October 2026' },
+  [ROUTES.employees]: { title: 'Employees', subtitle: 'Monday, 13 October 2026' },
+  [ROUTES.organization]: { title: 'Organization', subtitle: 'Monday, 13 October 2026' },
+  [ROUTES.settings]: { title: 'Settings', subtitle: 'Manage your account, workspace, and notifications.' },
+  [ROUTES.help]: { title: 'Help Center', subtitle: 'Find answers, guides, and support for your workspace.' },
+  [ROUTES.assistant]: { title: '179 Assist - Expanded', subtitle: 'Monday, 13 October 2026' },
+};

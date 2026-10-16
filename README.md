@@ -20,7 +20,7 @@
 
 | Area | Technology | Status |
 | --- | --- | --- |
-| Web client | React, JavaScript, JSX, CSS, Vite | Initial scaffold |
+| Web client | React, React Router, JavaScript, JSX, CSS, Vite | Feature development |
 | API | NestJS, TypeScript | Initial scaffold |
 | Virtual assistant | Python, FastAPI | Planned |
 | Testing | Component-specific test suites under `tests/` | Planned |
@@ -34,6 +34,12 @@
 - [FastAPI documentation](https://fastapi.tiangolo.com/)
 
 ## Operations
+
+### Temporary frontend demo access
+
+The frontend currently bypasses account authentication so a reviewer without an account can enter the portal. Clicking Sign in to 179FC creates an in-memory mock Club Admin session; email and password values are not validated or transmitted.
+
+This is a local frontend-preview workaround only, not a security feature. Before backend/database integration or any production deployment, replace it with real account lookup, credential verification, session handling, authorization, and role/permission enforcement.
 
 ### Local development
 
@@ -106,7 +112,7 @@
 
 | Workstream | Planning | Foundation | Feature Development | Test Coverage | Current Result |
 | --- | --- | --- | --- | --- | --- |
-| Frontend | Complete | Complete | Not started | Planned | React, JavaScript/JSX, CSS, and Vite application shell |
+| Frontend | Complete | Complete | In progress | Planned | Responsive React portal with temporary bypassed demo sign-in, protected routes, dashboard, member directory, organization, settings, help, and 179 Assist |
 | Backend | Complete | Complete | Not started | Planned | NestJS API shell with `GET /health` |
 | Chatbot | Complete | Not started | Not started | Planned | FastAPI delivery plan |
 | Designs | Complete | Not started | Not started | Not started | Asset and handoff plan |
@@ -120,6 +126,6 @@
 | 1 | Product and security | Define member data, authentication, roles, permissions, and chatbot access boundaries. | A shared domain and authorization baseline for all services. |
 | 2 | Backend | Implement versioned member, role, and organization administration modules with persistence and API documentation. | Secure member-management API endpoints. |
 | 3 | Designs | Produce approved responsive flows for sign-in, member directory, member profile, administration, and assistant interactions. | Implementation-ready design handoff. |
-| 4 | Frontend | Build authenticated member directory, member profile, and administration views; then integrate the backend and assistant entry point. | Usable member-management web experience. |
+| 4 | Frontend | Remove the temporary demo sign-in bypass, then connect the portal to backend/database authentication and member APIs; add the approved profile, Posts, and administration designs. | Usable member-management web experience with real access control and live data. |
 | 5 | Tests and CI | Add component test runners, smoke tests, member-flow coverage, API contracts, and CI reporting under `tests/`. | Repeatable quality checks with centralized test source. |
 | 6 | Chatbot | Create the FastAPI service, integrate it with authenticated backend APIs, and add guardrails, audit logging, and observability. | Secure virtual-assistant capability. |
