@@ -22,6 +22,10 @@ const paths = {
   pen: <><path d="M13.5 6.5 17.5 10.5M4 20l4.2-1 10.9-10.9a2.8 2.8 0 1 0-4-4L4.2 15 4 20Z" /><path d="M14 4.9 19.1 10" /></>,
   users: <><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9.5" r="2.2" /><path d="M3.8 20c.5-3.3 2.8-5.4 5.2-5.4s4.7 2.1 5.2 5.4M15.5 15.2c2.4.2 4.2 1.8 4.7 4.3" /></>,
   file: <><path d="M6 3h8l4 4v14H6z" /><path d="M14 3v5h5M9 12h6M9 16h6" /></>,
+  calendar: <><rect x="4" y="5" width="16" height="16" rx="2" /><path d="M8 3v4M16 3v4M4 10h16M9 14h2" /></>,
+  lock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></>,
+  shield: <path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z" />,
+  monitor: <><rect x="3" y="4" width="18" height="13" rx="2" /><path d="M12 17v3M8 20h8" /></>,
   headset: <><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v5H5a1 1 0 0 1-1-1v-4ZM20 14h-3v5h2a1 1 0 0 0 1-1v-4ZM17 19c-.8 1.3-2.4 2-5 2" /></>,
 };
 

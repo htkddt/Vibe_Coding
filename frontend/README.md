@@ -43,12 +43,12 @@ The application requires Node.js 20.19 or newer (or Node.js 22.12 or newer).
 
 ## Implemented routes and flow
 
-- /sign-in is the public sign-in form. It is currently in explicit demo-access mode: clicking Sign in to 179FC opens the mock Club Admin session even when email and password are blank or invalid.
-- Private routes are guarded by the in-memory auth store; unauthenticated visitors are redirected to /sign-in.
-- /dashboard, /employees, /organization, /settings, and /help implement the supplied reference screens. The employee search, notification switch, user menu, help guides, and 179 Assist panel are interactive.
-- The Settings and Help Center layouts were refreshed from designs/images/Settings.png and designs/images/Help.png (updated 2026-10-16): Settings now has notification tabs, preferences, save feedback, and account details; Help Center now has search, guides, articles, and support contact states.
-- /posts and /employees/:memberId intentionally remain clearly labeled placeholders because detailed product designs are not available.
-- Mock content is isolated in src/mocks/ so a future API adapter can replace it without changing page/component layout.
+- `/sign-in` uses an explicit demo-access flow. Any sign-in creates a mock Club Admin session in `sessionStorage`; credentials are neither validated nor sent. The session survives refresh in the same browser tab and is cleared on logout.
+- `/dashboard`, `/employees`, `/organization`, `/posts`, `/settings`, and `/help` use the authenticated shell. Employee profiles remain placeholders pending a design.
+- `/posts?tab=all|published|drafts` provides URL-backed tabs, search, sorting, status counts, draft edit links, and loading/empty/error states. The post collection is mock data; counts represent the complete mock collection.
+- `/settings?tab=general|notifications|security` provides URL-backed tabs, local form state, dirty-navigation confirmation, validation, and save feedback. The mock settings adapter stores preferences in browser `localStorage`; compact navigation applies after saving. These controls do not change server-side security or account settings.
+- Post creation, editing and details, password and session management, help articles, and support have clearly labeled placeholder routes until their designs and server-authorized APIs are available. The help guides navigate to relevant routes. 179 Assist uses a mock reply adapter and keeps conversation history while the shell remains mounted. Hovering or keyboard-focusing its icon shows the ?Ask 179 Assist? tooltip for up to five seconds. Clicking the icon hides the tooltip and toggles the chat panel.
+- Feature adapters isolate mock posts, settings, help, and assistant behavior from their UI. Existing dashboard, member, and organization data are local mocks.
 
 ## Responsive behavior
 
@@ -58,20 +58,17 @@ The application requires Node.js 20.19 or newer (or Node.js 22.12 or newer).
 
 ## Planned integration
 
-1. Replace the demo-access workaround with backend authentication, database-backed user lookup, password/session validation, and the finalized permission model before any production deployment. Do not treat the current form as authentication or use it to protect real member data.
-2. Add API adapters, loading/error states, and mutation workflows once backend endpoints are specified.
-3. Implement the Posts and member-profile screens after their designs are approved.
-4. Add frontend tests under ../tests/frontend/ and visual regression coverage.
+1. Replace demo access and browser storage with backend authentication, account settings, session validation, and the finalized permission model before production. The current flow does not protect real data.
+2. Connect server-authorized post, settings, help, support, and assistant APIs. Implement the dedicated post, password, session, article, support, and member-profile flows once their designs and contracts are approved.
+3. Add browser-based accessibility, interaction, and visual regression coverage across desktop and mobile viewports.
 
 ## Temporary demo-access workaround
 
-The portal deliberately bypasses account authentication so reviewers without an account can enter the workspace: any click on Sign in to 179FC creates the in-memory mock Club Admin session. The email and password inputs are visual-only in this mode and are neither validated nor sent anywhere.
-
-This workaround is only for the current frontend preview. It must be removed and replaced with real backend/database authentication before the system handles real accounts, sessions, roles, permissions, or member data.
+Clicking Sign in to 179FC creates a mock Club Admin session without checking credentials. The session is stored in the browser tab's `sessionStorage` and is not an authentication or authorization boundary. Replace it before using real accounts or member data.
 
 ## Test Location
 
-Do not add test source to this directory. All frontend tests must be created in ../tests/frontend/.
+Do not add test source to this directory. Frontend tests live in `../tests/frontend/`. Run the current logic checks with `node --test ../tests/frontend/portal.test.mjs`.
 
 ## Documentation Rule
 
