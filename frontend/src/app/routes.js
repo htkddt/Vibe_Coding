@@ -19,7 +19,7 @@ export const NAV_ITEMS = [
 ];
 
 export const PAGE_META = {
-  [ROUTES.dashboard]: { title: 'Dashboard', subtitle: 'Monday, 13 October 2026' },
+  [ROUTES.dashboard]: { title: 'Dashboard' },
   [ROUTES.posts]: { title: 'Posts', subtitle: 'Create, publish, and manage updates for your club.' },
   [ROUTES.employees]: { title: 'Employees', subtitle: 'Monday, 13 October 2026' },
   [ROUTES.organization]: { title: 'Organization', subtitle: 'Monday, 13 October 2026' },
