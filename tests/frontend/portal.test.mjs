@@ -14,6 +14,20 @@ test('post filters combine status, search and ordering without mutating the coll
   assert.deepEqual(posts.map(post => post.id), original);
 });
 
+test('post sorting supports title, author and status with predictable ties', () => {
+  const sample = [
+    { id: 'b', title: 'Beta', excerpt: '', author: 'Zoe', status: 'published', updatedAt: '2026-01-02' },
+    { id: 'a', title: 'Alpha', excerpt: '', author: 'Ana', status: 'draft', updatedAt: '2026-01-01' },
+    { id: 'c', title: 'Charlie', excerpt: '', author: 'Ana', status: 'draft', updatedAt: '2026-01-03' },
+  ];
+  assert.deepEqual(filterPosts(sample, 'all', '', 'title-asc').map(post => post.id), ['a', 'b', 'c']);
+  assert.deepEqual(filterPosts(sample, 'all', '', 'title-desc').map(post => post.id), ['c', 'b', 'a']);
+  assert.deepEqual(filterPosts(sample, 'all', '', 'author-asc').map(post => post.id), ['c', 'a', 'b']);
+  assert.deepEqual(filterPosts(sample, 'all', '', 'status').map(post => post.id), ['c', 'a', 'b']);
+  assert.deepEqual(filterPosts(sample, 'published', 'zoe', 'title-asc').map(post => post.id), ['b']);
+  assert.deepEqual(sample.map(post => post.id), ['b', 'a', 'c']);
+});
+
 test('settings adapter validates and persists only supplied changes', async () => {
   const values = new Map();
   globalThis.localStorage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };

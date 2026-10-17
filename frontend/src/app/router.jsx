@@ -7,6 +7,7 @@ import { EmployeeProfilePage } from '../features/employees/pages/EmployeeProfile
 import { EmployeesPage } from '../features/employees/pages/EmployeesPage.jsx';
 import { HelpPage } from '../features/help/pages/HelpPage.jsx';
 import { PostsPage } from '../features/posts/pages/PostsPage.jsx';
+import { PostDetailsPage } from '../features/posts/pages/PostDetailsPage.jsx';
 import { OrganizationPage } from '../features/organization/pages/OrganizationPage.jsx';
 import { PlaceholderPage } from '../features/shared/pages/PlaceholderPage.jsx';
 import { SettingsPage } from '../features/settings/pages/SettingsPage.jsx';
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
         { path: ROUTES.posts, element: <PostsPage /> },
         { path: '/posts/new', element: <PlaceholderPage title="Create post" description="Post creation will be available once its design and API are approved." /> },
         { path: '/posts/:postId/edit', element: <PlaceholderPage title="Edit draft" description="Draft editing will be available once its design and API are approved." /> },
-        { path: '/posts/:postId', element: <PlaceholderPage title="Post details" description="Post details will be available once its design and API are approved." /> },
+        { path: '/posts/:postId', element: <PostDetailsPage /> },
         { path: ROUTES.employees, element: <EmployeesPage /> },
         { path: '/employees/:memberId', element: <EmployeeProfilePage /> },
         { path: ROUTES.organization, element: <OrganizationPage /> },
