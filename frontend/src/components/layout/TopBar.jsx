@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PAGE_META, ROUTES } from '../../app/routes.js';
 import { useAuth } from '../../features/auth/authStore.jsx';
 import { Avatar } from '../ui/Avatar.jsx';
@@ -30,7 +30,7 @@ export function TopBar({ onMenuClick }) {
   return (
     <header className={'top-bar top-bar--' + (pathname.split('/')[1] || 'dashboard')}>
       <div className="top-bar__title"><button className="menu-toggle" aria-label="Open navigation" onClick={onMenuClick}><Icon name="menu" /></button><div><h1>{meta.title}</h1>{meta.subtitle && <p>{meta.subtitle}</p>}</div></div>
-      <div className="top-bar__actions">{pathname === ROUTES.posts && <Link className="button button--primary top-bar__create" to="/posts/new"><Icon name="plus" size={16} />Create post</Link>}
+      <div className="top-bar__actions">
       <div className="user-menu-wrap" ref={menuRef}>
         <button className="user-trigger" aria-expanded={menuOpen} aria-label="Open user menu" onClick={() => setMenuOpen((current) => !current)}><Avatar initials="TK" tone="orange" size="sm" label="Tuan Kiet" /><Icon name="chevronDown" size={14} /></button>
         {menuOpen ? <div className="user-menu">
