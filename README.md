@@ -37,15 +37,21 @@
 
 ### Temporary frontend demo access
 
-The frontend currently bypasses account authentication so a reviewer without an account can enter the portal. Clicking Sign in to 179FC creates a mock Club Admin session in the browser tab?s `sessionStorage`; email and password values are not validated or transmitted.
+- The frontend currently bypasses account authentication so a reviewer without an account can enter the portal. 
+- Clicking Sign in to 179FC creates a mock Club Admin session in the browser tab?s `sessionStorage`; email and password values are not validated or transmitted.
+- This is a local frontend-preview workaround only, not a security feature. 
+- Before backend/database integration or any production deployment, replace it with real account lookup, credential verification, session handling, authorization, and role/permission enforcement.
 
-This is a local frontend-preview workaround only, not a security feature. Before backend/database integration or any production deployment, replace it with real account lookup, credential verification, session handling, authorization, and role/permission enforcement.
+### Where Post Create is implemented
 
-### Local development
-
-- Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API. Reopen the terminal after upgrading Node.js so that `node --version` reports the new release.
-- The frontend development server uses port `5173`, the backend uses port `3000`. Make sure both ports are available before starting the services.
-- The chatbot service is intentionally not runnable yet, its delivery plan is in `chatbot/README.md`.
+- Post Create and Post Edit share [`frontend/src/features/posts/pages/PostEditorPage.jsx`](frontend/src/features/posts/pages/PostEditorPage.jsx).
+- There is no separate `PostCreatePage.jsx`. [`frontend/src/app/router.jsx`](frontend/src/app/router.jsx) routes `/posts/new` and `/posts/:postId/edit` to that component. 
+- It uses `isNew = !postId` to select Create when the route has no post ID, or Edit when an ID is present. - Post Details uses the separate [`PostDetailsPage.jsx`](frontend/src/features/posts/pages/PostDetailsPage.jsx).
+- The shared editor contains the form and `submit(mode)` logic.
+- Its mock persistence is in [`postsApi.js`](frontend/src/features/posts/api/postsApi.js), editor content handling is in [`postContent.js`](frontend/src/features/posts/postContent.js), and styles are in [`post-workflow.css`](frontend/src/styles/post-workflow.css).
+- The adapter stores posts in the current browser's `localStorage`, scheduled publication occurs on the next collection read after the scheduled time, and visibility is not enforced by a backend.
+- See [Post Create and Post Edit implementation](frontend/README.md#post-create-and-post-edit-implementation) for the route, design, and file map.
+- Changes to the shared editor should be checked in both Create and Edit modes.
 
 ### Build
 
@@ -96,6 +102,12 @@ This is a local frontend-preview workaround only, not a security feature. Before
    ~~~
 
    A healthy API returns status `200` and the JSON body `{"service":"179fc-mms-backend","status":"ok"}`.
+
+### Local development
+
+- Use a supported Node.js release: 20.19+ (or 22.12+) for the React JavaScript client, and 20.11+ for the NestJS API. Reopen the terminal after upgrading Node.js so that `node --version` reports the new release.
+- The frontend development server uses port `5173`, the backend uses port `3000`. Make sure both ports are available before starting the services.
+- The chatbot service is intentionally not runnable yet, its delivery plan is in `chatbot/README.md`.
 
 ### Documentation rule
 

@@ -4,22 +4,27 @@
 
 This directory stores design references and frontend handoff documentation. The reference images cover the primary desktop states currently available. They define the visual and interaction contract described here; APIs, permissions, and copy that are not visible in a reference still require product/backend confirmation.
 
-| Image | Proposed route | Purpose |
+| Image | Route or state | Purpose |
 | --- | --- | --- |
-| `Sign-in.png` | `/sign-in` | Authenticate users before entering the workspace. |
-| `Dashboard.png` | `/dashboard` | Summarize members, team activity, and upcoming events. |
-| `Employees.png` | `/employees` | Search, browse, and begin adding members. |
-| `Organization.png` | `/organization` | View the organization's reporting structure. |
-| `Post_All.png` | `/posts?tab=all` | List all posts, regardless of status. |
-| `Post_Published.png` | `/posts?tab=published` | List published posts only. |
-| `Post_Drafts.png` | `/posts?tab=drafts` | List drafts only and expose their edit action. |
-| `Settings_General.png` | `/settings?tab=general` | Edit workspace and display preferences. |
-| `Settings_Notifications.png` | `/settings?tab=notifications` | Edit notification preferences. |
-| `Settings_Security.png` | `/settings?tab=security` | Manage password, 2FA, and active sessions. |
-| `Help.png` | `/help` | Find guides, common articles, and support. |
-| `Assist.png` | N/A (assistant panel state) | Expanded state of the shared 179 Assist panel. |
+| [`Sign-in.png`](Sign-in.png) | `/sign-in` | Authenticate users before entering the workspace. |
+| [`Dashboard.png`](Dashboard.png) | `/dashboard` | Summarize members, team activity, and upcoming events. |
+| [`Employees.png`](Employees.png) | `/employees` | Search, browse, and begin adding members. |
+| [`Organization.png`](Organization.png) | `/organization` | View the organization's reporting structure. |
+| [`Post_All.png`](Post_All.png) | `/posts?tab=all` | List all posts, regardless of status. |
+| [`Post_Published.png`](Post_Published.png) | `/posts?tab=published` | List published posts only. |
+| [`Post_Drafts.png`](Post_Drafts.png) | `/posts?tab=drafts` | List drafts only and expose their edit action. |
+| [`Post_Details.png`](Post_Details.png) | `/posts/:postId` | View a post, its status, actions, performance, and recent activity. |
+| [`Post_Creations.png`](Post_Creations.png) | `/posts/new` | Create an update, add media, configure visibility, and save, publish, or schedule it. |
+| [`Post_Editor.png`](Post_Editor.png) | `/posts/:postId/edit` | Edit a draft with draft settings, auto-save feedback, a checklist, and publishing actions. |
+| [`Settings_General.png`](Settings_General.png) | `/settings?tab=general` | Edit workspace and display preferences. |
+| [`Settings_Notifications.png`](Settings_Notifications.png) | `/settings?tab=notifications` | Edit notification preferences. |
+| [`Settings_Security.png`](Settings_Security.png) | `/settings?tab=security` | Manage password, 2FA, and active sessions. |
+| [`Help.png`](Help.png) | `/help` | Find guides, common articles, and support. |
+| [`Assist.png`](Assist.png) | N/A (assistant panel state) | Expanded state of the shared 179 Assist panel. |
 
 `Posts`, `Settings`, and `Help` now have detailed desktop references. The separate files for each tab are states of one page, not separate sidebar destinations. The active tab must be represented in the URL so that refresh, browser navigation, and a copied link restore the same view.
+
+The three post workflow references above are separate screens reached from the posts list or details page. The current exports do not include a source Figma link or export date; record those when they become available. The images are desktop references, while responsive layouts are implemented in the frontend.
 
 ## UI and component overview
 
@@ -35,13 +40,13 @@ This directory stores design references and frontend handoff documentation. The 
 | `PageHeader` | Standardizes titles, subtitles, and page actions. | Private pages |
 | `Tabs` | Accessible tab list with an active underline. Keeps its selected value in the page URL, supports keyboard navigation, and becomes horizontally scrollable rather than wrapping on narrow screens. | Posts, Settings |
 | `Avatar` | Renders an image or colored-initials fallback. | Header, cards, organization nodes |
-| `UserMenu` | Toggleable account popover with Profile, Settings, Help center, and Log out actions. Closes on outside click, Escape, and navigation. | `TopBar` |
-| `AssistantLauncher` / `AssistantPanel` | Persistent “Ask 179 Assist” launcher and expandable chat panel with a close action, message history, prompt suggestion, and submit input. | `AppShell` |
-| `EmptyState`, `LoadingState`, `ErrorState` | States absent from the mockups but required for API integration. | Per feature |
+| User menu | Toggleable account popover implemented within `TopBar`, with Profile, Settings, Help center, and Log out actions. Closes on outside click, Escape, and navigation. | `TopBar` |
+| `AssistantLauncher` | Persistent “Ask 179 Assist” launcher and expandable chat panel with a close action, message history, prompt suggestion, and submit input. | `AppShell` |
+| Loading, empty, and error states | States absent from the mockups but required for API integration; the shared `EmptyState` component and page-level states cover these cases. | Per feature |
 
 ### Sign-in
 
-`SignInPage` sits outside `AppShell` and uses `AuthSplitLayout`: a brand/message area on the left and a form on the right. The form includes a `TextField` (email), `PasswordField`, “forgot password” `TextLink`, submit `Button`, and an administrator-contact help message. It should use a real `<form>`, labels bound to inputs, and field-level error messages.
+`SignInPage` sits outside `AppShell` and uses a split layout: a brand/message area on the left and a form on the right. The form includes email and password fields, a “forgot password” action, submit button, and an administrator-contact help message. It should use a real `<form>`, labels bound to inputs, and field-level error messages. The current sign-in is a demo session, not real authentication.
 
 ### Dashboard
 
@@ -66,7 +71,7 @@ This directory stores design references and frontend handoff documentation. The 
 
 | Area | Required behavior and content |
 | --- | --- |
-| Page header | Render **Posts**, the subtitle “Create, publish, and manage updates for your club.”, a `Create post` primary action, and the shared user menu. `Create post` starts the post-creation flow; its form is outside the provided reference and should be a separate route or modal with its own design approval. |
+| Page header | Render **Posts**, the subtitle “Create, publish, and manage updates for your club.”, and the shared user menu. The `Create post` action opens `/posts/new`, which has its own reference in `Post_Creations.png`. |
 | Toolbar | A labelled search field filters by title, excerpt, and author; the tab list follows it; the `Newest first` control selects the ordering. Search text and sort should remain intact while changing tabs. Persist them in query parameters only if the product needs shareable filtered links. |
 | Tabs | `All posts`, `Published`, and `Drafts` use `role="tablist"`, `role="tab"`, and `aria-selected`. The selected tab has burgundy/red text and a red underline. Click, Left/Right Arrow, Home, and End change the selected view without a full page reload. |
 | Results panel | Its heading changes with the selection: `Recent posts`, `Published posts`, or `Draft posts`. List cards in the selected sort order. Each card shows a type icon, title, excerpt, author avatar/name, timestamp, a status chip, and an overflow menu. The all-posts list can contain both statuses. |
@@ -78,6 +83,20 @@ Use a `PostStatus` enum (`published`, `draft`) rather than display text to deriv
 For loading, retain the toolbar and overview-card dimensions with skeletons. For empty results, keep the active tab and filters visible, explain whether the cause is the tab or search query, and provide the relevant primary action: create a post for All/Published or create/review drafts for Drafts. Failures must preserve the selected tab and offer a retry action.
 
 At desktop width, the results panel and overview rail form two columns; below the desktop breakpoint, place the overview after the list. On a narrow screen, the header action moves below the title if needed, the search takes a full row, the sort control remains reachable, and tab labels scroll horizontally. Do not hide a status chip, timestamp, or draft edit action merely to make a card narrower.
+
+The table above describes the handoff intent; the current `PostsPage` groups its overview above the results and uses an inline create action and draft edit icon. The campaign and overflow menus described by the earlier handoff are not separate components in the current implementation.
+
+### Post details, creation, and editing
+
+| Reference | Design content and current route |
+| --- | --- |
+| [`Post_Details.png`](Post_Details.png) | `/posts/:postId`: back link, status, title, author and date, media and content, plus post actions, performance figures and chart, and recent activity. The current page supports editing and unpublishing published posts; sample performance and activity come from mock data. |
+| [`Post_Creations.png`](Post_Creations.png) | `/posts/new`: title, rich-text update, media upload, visibility, publish-now or schedule choice, writing tips, and cancel/save-draft/publish actions. The current blank form starts with `emptyPost()` and validates title, content before publishing, image type/size, and future scheduling time. |
+| [`Post_Editor.png`](Post_Editor.png) | `/posts/:postId/edit`: editable content and attachment, draft visibility and auto-save feedback, checklist, discard/save-draft/review-and-publish actions. The same route also edits published posts, with controls adapted to their status. |
+
+Both Create and Edit are implemented in [`PostEditorPage.jsx`](../frontend/src/features/posts/pages/PostEditorPage.jsx), not in separate create and edit files. [`router.jsx`](../frontend/src/app/router.jsx) maps both routes to that component; `isNew = !postId` selects the mode. [`PostDetailsPage.jsx`](../frontend/src/features/posts/pages/PostDetailsPage.jsx) is separate. Shared post styling lives in [`post-workflow.css`](../frontend/src/styles/post-workflow.css), and the design illustrations used by the frontend live under [`public/images/posts/`](../frontend/public/images/posts/). See the [frontend implementation notes](../frontend/README.md#post-create-and-post-edit-implementation) for the file map.
+
+Post operations currently use a mock adapter and this browser's `localStorage`: data is not shared between users or devices, and visibility is not enforced by a server. Existing drafts auto-save; a new post is saved through its action buttons. Scheduled items remain drafts until the post collection is next read after the chosen time, rather than being published by a background service. Server authorization, audience enforcement, persistent storage, and real scheduled publishing remain integration work.
 
 ### Settings (tabbed page)
 
@@ -97,7 +116,7 @@ At narrow widths, retain the tab list above the content, move `AccountSummary` b
 
 ### Help Center and 179 Assist
 
-`HelpCenterPage` includes a help-article search input, three quick-guide cards (create a post, find a member, manage an account), a popular-article list, and a `Contact support` call to action. Cards and articles navigate to their destination or article detail; search states need loading, no-result, and error presentations.
+`HelpPage` includes a help-article search input, three quick-guide cards (create a post, find a member, manage an account), a popular-article list, and a `Contact support` call to action. Cards and articles navigate to their destination or article detail; search states need loading, no-result, and error presentations.
 
 The circular assistant trigger is present in the authenticated shell. It expands to the `AssistantPanel` reference: a header with availability message and close button, a conversation area, suggested question, and labelled text input with submit button. Opening the panel must move focus into it; closing returns focus to the launcher. Messages need their own loading/error state and must be announced accessibly.
 
@@ -123,125 +142,140 @@ The designs indicate a light system with thin borders and very pale pink cards, 
 
 Add spacing, font-size, font-weight, and breakpoint tokens as well. Do not scatter colors, shadows, or magic numbers throughout features. The images are desktop references, so responsive behavior should be confirmed in review: use a collapsed/drawer sidebar on mobile, make grids single-column, and allow header actions to wrap.
 
-## Proposed `frontend/src` structure
+## Current frontend structure
 
-The frontend currently uses React with JavaScript and JSX. The feature-based structure below is the canonical reference for the currently available designs: feature logic, APIs, and components stay together, while only genuinely shared parts belong in `components/`.
+The tree below reflects the current source and assets. Generated `node_modules/` and `dist/` directories are omitted. The full tree is also maintained in [frontend/README.md](../frontend/README.md#directory-structure).
 
 ```text
-frontend/src/
-├── app/
-│   ├── App.jsx                    # Declares application routes and providers
-│   ├── router.jsx                 # Public/private routes and 404 fallback
-│   └── routes.js                  # URL constants; avoids hard-coded paths
-├── assets/
-│   ├── brand/                     # Approved logo/wordmark assets
-│   └── icons/                     # Local SVGs (if no icon library is used)
-├── components/
-│   ├── layout/
-│   │   ├── AppShell.jsx
-│   │   ├── Sidebar.jsx
-│   │   └── TopBar.jsx
-│   ├── ui/
-│   │   ├── Avatar.jsx
-│   │   ├── Button.jsx
-│   │   ├── Card.jsx
-│   │   ├── TextField.jsx
-│   │   ├── Tabs.jsx
-│   │   ├── Toggle.jsx
-│   │   ├── PageHeader.jsx
-│   │   └── states/                # LoadingState, EmptyState, ErrorState
-│   └── assistant/
-│       ├── AssistantLauncher.jsx
-│       └── AssistantPanel.jsx
-├── features/
-│   ├── auth/
-│   │   ├── api/authApi.js
-│   │   ├── components/SignInForm.jsx
-│   │   ├── pages/SignInPage.jsx
-│   │   └── authStore.js           # Context/reducer initially; replace when needed
-│   ├── dashboard/
-│   │   ├── api/dashboardApi.js
-│   │   ├── components/StatCard.jsx
-│   │   ├── components/TeamFeed.jsx
-│   │   ├── components/PostCard.jsx
-│   │   ├── components/UpcomingPanel.jsx
-│   │   └── pages/DashboardPage.jsx
-│   ├── employees/
-│   │   ├── api/membersApi.js
-│   │   ├── components/MemberSearch.jsx
-│   │   ├── components/EmployeeCard.jsx
-│   │   ├── components/EmployeeGrid.jsx
-│   │   ├── pages/EmployeesPage.jsx
-│   │   └── pages/EmployeeProfilePage.jsx # Route is ready; UI awaits a design
-│   ├── posts/
-│   │   ├── api/postsApi.js
-│   │   ├── components/PostsToolbar.jsx
-│   │   ├── components/PostList.jsx
-│   │   ├── components/PostListItem.jsx
-│   │   ├── components/PostOverview.jsx
-│   │   ├── components/PostsCampaignCard.jsx
-│   │   └── pages/PostsPage.jsx
-│   ├── settings/
-│   │   ├── api/settingsApi.js
-│   │   ├── components/AccountSummary.jsx
-│   │   ├── components/GeneralSettingsForm.jsx
-│   │   ├── components/NotificationSettingsForm.jsx
-│   │   ├── components/SecuritySettingsPanel.jsx
-│   │   └── pages/SettingsPage.jsx
-│   ├── help/
-│   │   ├── api/helpApi.js
-│   │   ├── components/QuickGuideCard.jsx
-│   │   ├── components/PopularArticleList.jsx
-│   │   └── pages/HelpCenterPage.jsx
-│   └── organization/
-│       ├── api/organizationApi.js
-│       ├── components/OrganizationChart.jsx
-│       ├── components/OrganizationNode.jsx
-│       └── pages/OrganizationPage.jsx
-├── hooks/
-│   └── useMediaQuery.js           # Widely used hook, not owned by a feature
-├── lib/
-│   ├── httpClient.js              # Base URL, auth headers, normalized errors
-│   ├── formatters.js              # Pure date/name formatting
-│   └── constants.js
-├── mocks/
-│   ├── dashboard.js               # Data matching the designs while API is unavailable
-│   ├── members.js
-│   ├── posts.js
-│   ├── settings.js
-│   ├── help.js
-│   └── organization.js
-├── styles/
-│   ├── tokens.css                 # Colors, type, spacing, radii, shadows
-│   ├── globals.css                # Reset, body, focus styles
-│   └── utilities.css              # Only genuinely necessary utilities
-├── main.jsx                       # React bootstrap; imports globals.css
-└── App.jsx                        # Temporary re-export during migration
+frontend/
+|-- public/
+|   +-- images/
+|       |-- dashboard/
+|       |   |-- quan-khu-7.jpg
+|       |   +-- thong-nhat.jpg
+|       +-- posts/
+|           |-- training-calendar.svg
+|           +-- volunteer-team.svg
+|-- src/
+|   |-- app/
+|   |   |-- App.jsx
+|   |   |-- router.jsx
+|   |   +-- routes.js
+|   |-- components/
+|   |   |-- assistant/
+|   |   |   |-- assistantApi.js
+|   |   |   +-- AssistantLauncher.jsx
+|   |   |-- layout/
+|   |   |   |-- AppShell.jsx
+|   |   |   |-- Sidebar.jsx
+|   |   |   +-- TopBar.jsx
+|   |   +-- ui/
+|   |       |-- states/
+|   |       |   +-- EmptyState.jsx
+|   |       |-- Avatar.jsx
+|   |       |-- Button.jsx
+|   |       |-- Card.jsx
+|   |       |-- Icon.jsx
+|   |       |-- PageHeader.jsx
+|   |       |-- Tabs.jsx
+|   |       +-- TextField.jsx
+|   |-- features/
+|   |   |-- auth/
+|   |   |   |-- components/
+|   |   |   |   +-- SignInForm.jsx
+|   |   |   |-- pages/
+|   |   |   |   +-- SignInPage.jsx
+|   |   |   +-- authStore.jsx
+|   |   |-- dashboard/
+|   |   |   |-- components/
+|   |   |   |   |-- PostCard.jsx
+|   |   |   |   |-- SessionDetails.jsx
+|   |   |   |   |-- StatCard.jsx
+|   |   |   |   |-- TeamFeed.jsx
+|   |   |   |   +-- UpcomingPanel.jsx
+|   |   |   |-- pages/
+|   |   |   |   +-- DashboardPage.jsx
+|   |   |   +-- dashboardStore.js
+|   |   |-- employees/
+|   |   |   |-- components/
+|   |   |   |   |-- EmployeeCard.jsx
+|   |   |   |   |-- EmployeeGrid.jsx
+|   |   |   |   +-- MemberSearch.jsx
+|   |   |   +-- pages/
+|   |   |       |-- EmployeeProfilePage.jsx
+|   |   |       +-- EmployeesPage.jsx
+|   |   |-- help/
+|   |   |   |-- api/
+|   |   |   |   +-- helpApi.js
+|   |   |   +-- pages/
+|   |   |       +-- HelpPage.jsx
+|   |   |-- organization/
+|   |   |   |-- components/
+|   |   |   |   |-- OrganizationChart.jsx
+|   |   |   |   +-- OrganizationNode.jsx
+|   |   |   +-- pages/
+|   |   |       +-- OrganizationPage.jsx
+|   |   |-- posts/
+|   |   |   |-- api/
+|   |   |   |   +-- postsApi.js
+|   |   |   |-- pages/
+|   |   |   |   |-- PostDetailsPage.jsx
+|   |   |   |   |-- PostEditorPage.jsx
+|   |   |   |   +-- PostsPage.jsx
+|   |   |   |-- postContent.js
+|   |   |   |-- postFilters.js
+|   |   |   +-- postFormat.js
+|   |   |-- settings/
+|   |   |   |-- api/
+|   |   |   |   +-- settingsApi.js
+|   |   |   +-- pages/
+|   |   |       +-- SettingsPage.jsx
+|   |   +-- shared/
+|   |       +-- pages/
+|   |           +-- PlaceholderPage.jsx
+|   |-- hooks/
+|   |   +-- useUrlTab.js
+|   |-- mocks/
+|   |   |-- dashboard.js
+|   |   |-- help.js
+|   |   |-- members.js
+|   |   |-- organization.js
+|   |   |-- posts.js
+|   |   +-- settings.js
+|   |-- styles/
+|   |   |-- globals.css
+|   |   |-- post-workflow.css
+|   |   +-- tokens.css
+|   |-- App.jsx
+|   +-- main.jsx
+|-- index.html
+|-- package-lock.json
+|-- package.json
+|-- README.md
++-- vite.config.js
 ```
 
-This is the canonical frontend structure for the currently available designs. Add files when their feature is implemented; do not create empty placeholder files solely to mirror the tree. The root `App.jsx` is a temporary migration re-export and can be removed once `main.jsx` imports `app/App.jsx` directly.
+The frontend uses feature-based folders under `src/features/`; shared layout and UI code lives in `src/components/`. `src/App.jsx` is a compatibility re-export, while `src/main.jsx` imports `src/app/App.jsx` directly.
 
 ## Data and behavior boundaries
 
 - A page coordinates data, loading/error states, and layout; cards, forms, and charts handle rendering and callbacks. UI components must not call `fetch` directly.
-- `api/*.js` modules use the shared `lib/httpClient.js`; endpoints, response shapes, and auth tokens are isolated so mock data can be replaced easily.
-- Before the backend is connected, pages import from `mocks/` through the API adapter, allowing the implementation to swap to HTTP without changing the component tree.
+- Feature API modules currently provide mock adapters; there is no shared `lib/httpClient.js` in the current frontend. Define a shared HTTP layer and server contracts when connecting the backend.
+- Mock data lives in `mocks/` and is consumed through feature adapters or directly by the features that currently have no adapter. Replace the mock paths with server-backed data as the relevant APIs become available.
 - Tab values are validated by a page-level parser. Invalid or missing values canonicalize to `all` for Posts and `general` for Settings without creating a duplicate history entry. Browser Back/Forward restores the appropriate tab and its data request.
 - Do not mix post, settings, help, and assistant data in a global page store. Each feature owns its loading/error/cache state; `authStore` remains limited to identity/session data and shared user-menu data.
-- Saving settings, publishing/editing a post, changing a password, managing sessions, and contacting support require server-authorized feature APIs. Mocks must follow the same input/output contract, including validation and error shapes.
+- Production settings, post publication/editing, password and session management, and support require server-authorized feature APIs. The current mock workflows do not provide server-side authorization or shared persistence.
 - The auth guard redirects unauthenticated users to `/sign-in`; `authStore` retains the current user and session. Confirm the admin permission model with the backend before restricting “Add member” or administration routes.
 - Keep labels/content in constants or data models instead of duplicating strings across components; this also keeps the door open for i18n if needed.
 
-## Suggested implementation order
+## Current implementation and remaining integration
 
-1. Establish tokens, reset/global styles, UI primitives, and `AppShell`.
-2. Add routing plus `SignInPage`/auth guard with a mock session; install `react-router-dom` at this point.
-3. Implement Dashboard with mock data to establish the visual language and responsive behavior.
-4. Implement Posts as one URL-backed tabbed page, including search, sort, status filtering, overview counts, all async states, and draft edit affordances.
-5. Implement Settings as one URL-backed tabbed page, including dirty-form protection, save feedback, and dedicated password/session flows.
-6. Implement Employees (client-side search against mock data, card/grid, and empty state), then connect the member API when its backend contract is ready.
-7. Implement the Organization Chart from tree data, then handle mobile overflow/list behavior.
-8. Implement Help Center and the Assistant panel using the available references; connect support/assistant services after their backend contracts are ready.
+The shell, demo sign-in, Dashboard, post list and workflow, Settings, Employees, Organization, Help, and Assistant have frontend implementations. Several supporting routes, including password and session management, help articles, and member profiles, remain placeholders. The following work is still needed:
+
+1. Replace demo authentication and browser-only storage with server-authorized accounts, APIs, and persistence.
+2. Connect post visibility, activity metrics, uploads, and scheduled publishing to backend services; keep Create and Edit aligned when changing their shared component.
+3. Complete placeholder flows when their designs and service contracts are available, and connect member, settings, help, support, and assistant APIs.
+4. Validate responsive layouts, accessibility, interaction behavior, and visual consistency against the references across desktop and mobile.
 
 ## Asset conventions and documentation updates
 
