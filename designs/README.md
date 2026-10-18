@@ -2,29 +2,46 @@
 
 ## Purpose and scope
 
-This directory stores design references and frontend handoff documentation. The reference images cover the primary desktop states currently available. They define the visual and interaction contract described here; APIs, permissions, and copy that are not visible in a reference still require product/backend confirmation.
+This directory contains desktop design references and their accompanying UX descriptions. Each screen or state has a PNG export and a Markdown file covering its user goal, core experience, expected behavior, and navigation. The UX descriptions capture design intent; they do not imply that every flow is implemented. APIs, permissions, and copy that are not visible in a reference still require product/backend confirmation.
 
-| Image | Route or state | Purpose |
-| --- | --- | --- |
-| [`Sign-in.png`](Sign-in.png) | `/sign-in` | Authenticate users before entering the workspace. |
-| [`Dashboard.png`](Dashboard.png) | `/dashboard` | Summarize members, team activity, and upcoming events. |
-| [`Employees.png`](Employees.png) | `/employees` | Search, browse, and begin adding members. |
-| [`Organization.png`](Organization.png) | `/organization` | View the organization's reporting structure. |
-| [`Post_All.png`](Post_All.png) | `/posts?tab=all` | List all posts, regardless of status. |
-| [`Post_Published.png`](Post_Published.png) | `/posts?tab=published` | List published posts only. |
-| [`Post_Drafts.png`](Post_Drafts.png) | `/posts?tab=drafts` | List drafts only and expose their edit action. |
-| [`Post_Details.png`](Post_Details.png) | `/posts/:postId` | View a post, its status, actions, performance, and recent activity. |
-| [`Post_Creations.png`](Post_Creations.png) | `/posts/new` | Create an update, add media, configure visibility, and save, publish, or schedule it. |
-| [`Post_Editor.png`](Post_Editor.png) | `/posts/:postId/edit` | Edit a draft with draft settings, auto-save feedback, a checklist, and publishing actions. |
-| [`Settings_General.png`](Settings_General.png) | `/settings?tab=general` | Edit workspace and display preferences. |
-| [`Settings_Notifications.png`](Settings_Notifications.png) | `/settings?tab=notifications` | Edit notification preferences. |
-| [`Settings_Security.png`](Settings_Security.png) | `/settings?tab=security` | Manage password, 2FA, and active sessions. |
-| [`Help.png`](Help.png) | `/help` | Find guides, common articles, and support. |
-| [`Assist.png`](Assist.png) | N/A (assistant panel state) | Expanded state of the shared 179 Assist panel. |
+## Design files and routes
 
-`Posts`, `Settings`, and `Help` now have detailed desktop references. The separate files for each tab are states of one page, not separate sidebar destinations. The active tab must be represented in the URL so that refresh, browser navigation, and a copied link restore the same view.
+| Screen or state | Image | UX description | Route or state |
+| --- | --- | --- | --- |
+| Sign-in | [PNG](Sign-in/Sign-in.png) | [UX](Sign-in/Sign-in.md) | `/sign-in` |
+| Dashboard | [PNG](Dashboard/Dashboard.png) | [UX](Dashboard/Dashboard.md) | `/dashboard` |
+| Employees | [PNG](Employees/Employees.png) | [UX](Employees/Employees.md) | `/employees` |
+| Organization | [PNG](Organization/Organization.png) | [UX](Organization/Organization.md) | `/organization` |
+| Posts: All | [PNG](Posts/Post_All.png) | [UX](Posts/Post_All.md) | `/posts?tab=all` |
+| Posts: Published | [PNG](Posts/Post_Published.png) | [UX](Posts/Post_Published.md) | `/posts?tab=published` |
+| Posts: Drafts | [PNG](Posts/Post_Drafts.png) | [UX](Posts/Post_Drafts.md) | `/posts?tab=drafts` |
+| Post details | [PNG](Posts/Post_Details.png) | [UX](Posts/Post_Details.md) | `/posts/:postId` |
+| Create post | [PNG](Posts/Post_Creations.png) | [UX](Posts/Post_Creations.md) | `/posts/new` |
+| Edit draft | [PNG](Posts/Post_Editor.png) | [UX](Posts/Post_Editor.md) | `/posts/:postId/edit` |
+| Settings: General | [PNG](Settings/Settings_General.png) | [UX](Settings/Settings_General.md) | `/settings?tab=general` |
+| Settings: Notifications | [PNG](Settings/Settings_Notifications.png) | [UX](Settings/Settings_Notifications.md) | `/settings?tab=notifications` |
+| Settings: Security | [PNG](Settings/Settings_Security.png) | [UX](Settings/Settings_Security.md) | `/settings?tab=security` |
+| Help | [PNG](Help/Help.png) | [UX](Help/Help.md) | `/help` |
+| Assist | [PNG](Assist/Assist.png) | [UX](Assist/Assist.md) | Shared assistant panel, no dedicated route |
 
-The three post workflow references above are separate screens reached from the posts list or details page. The current exports do not include a source Figma link or export date; record those when they become available. The images are desktop references, while responsive layouts are implemented in the frontend.
+```text
+designs/
+|-- Assist/           Assist.png, Assist.md
+|-- Dashboard/        Dashboard.png, Dashboard.md
+|-- Employees/        Employees.png, Employees.md
+|-- Help/             Help.png, Help.md
+|-- Organization/     Organization.png, Organization.md
+|-- Posts/            Post_All, Post_Published, Post_Drafts,
+|                     Post_Details, Post_Creations, Post_Editor (.png and .md)
+|-- Settings/         Settings_General, Settings_Notifications,
+|                     Settings_Security (.png and .md)
+|-- Sign-in/          Sign-in.png, Sign-in.md
++-- README.md
+```
+
+The Posts and Settings tab files represent states of their respective pages, not separate sidebar destinations. The active tab must be represented in the URL so that refresh, browser navigation, and a copied link restore the same view. Post details, creation, and editing are separate screens reached from the posts list or details page.
+
+The exports do not include a source Figma link or export date; record those when they become available. The images are desktop references, while responsive layouts are implemented in the frontend.
 
 ## UI and component overview
 
@@ -52,7 +69,7 @@ The three post workflow references above are separate screens reached from the p
 
 | Component | Content represented in the design |
 | --- | --- |
-| `StatCard` | “Active members”, “Posts this week”, and “Teams” values; receives the tone/color and value via props. |
+| `StatCard` | Active members, posts this week, and drafts in the UX description. The current frontend mock displays Teams instead of Drafts. |
 | `StatsGrid` | Responsive grid containing `StatCard`s. |
 | `TeamFeed` / `PostCard` | Author avatar, team, timestamp, content, tag, and action/statistics area (like/comment). |
 | `UpcomingPanel` / `UpcomingEventItem` | Event list with a date badge, title, and time/location metadata. |
@@ -90,9 +107,9 @@ The table above describes the handoff intent; the current `PostsPage` groups its
 
 | Reference | Design content and current route |
 | --- | --- |
-| [`Post_Details.png`](Post_Details.png) | `/posts/:postId`: back link, status, title, author and date, media and content, plus post actions, performance figures and chart, and recent activity. The current page supports editing and unpublishing published posts; sample performance and activity come from mock data. |
-| [`Post_Creations.png`](Post_Creations.png) | `/posts/new`: title, rich-text update, media upload, visibility, publish-now or schedule choice, writing tips, and cancel/save-draft/publish actions. The current blank form starts with `emptyPost()` and validates title, content before publishing, image type/size, and future scheduling time. |
-| [`Post_Editor.png`](Post_Editor.png) | `/posts/:postId/edit`: editable content and attachment, draft visibility and auto-save feedback, checklist, discard/save-draft/review-and-publish actions. The same route also edits published posts, with controls adapted to their status. |
+| [`Post_Details.png`](Posts/Post_Details.png) | `/posts/:postId`: back link, status, title, author and date, media and content, plus post actions, performance figures and chart, and recent activity. The current page supports editing and unpublishing published posts; sample performance and activity come from mock data. |
+| [`Post_Creations.png`](Posts/Post_Creations.png) | `/posts/new`: title, rich-text update, media upload, visibility, publish-now or schedule choice, writing tips, and cancel/save-draft/publish actions. The current blank form starts with `emptyPost()` and validates title, content before publishing, image type/size, and future scheduling time. |
+| [`Post_Editor.png`](Posts/Post_Editor.png) | `/posts/:postId/edit`: editable content and attachment, draft visibility and auto-save feedback, checklist, discard/save-draft/review-and-publish actions. The same route also edits published posts, with controls adapted to their status. |
 
 Both Create and Edit are implemented in [`PostEditorPage.jsx`](../frontend/src/features/posts/pages/PostEditorPage.jsx), not in separate create and edit files. [`router.jsx`](../frontend/src/app/router.jsx) maps both routes to that component; `isNew = !postId` selects the mode. [`PostDetailsPage.jsx`](../frontend/src/features/posts/pages/PostDetailsPage.jsx) is separate. Shared post styling lives in [`post-workflow.css`](../frontend/src/styles/post-workflow.css), and the design illustrations used by the frontend live under [`public/images/posts/`](../frontend/public/images/posts/). See the [frontend implementation notes](../frontend/README.md#post-create-and-post-edit-implementation) for the file map.
 
@@ -279,6 +296,6 @@ The shell, demo sign-in, Dashboard, post list and workflow, Settings, Employees,
 
 ## Asset conventions and documentation updates
 
-- Use English, lowercase kebab-case names for new assets; use SVG for icons and vectors, and optimized PNG/WebP for raster assets.
+- Keep the image and UX description for each screen or state together in its feature folder, using matching base names. Existing exports retain their current names; use English, lowercase kebab-case for new assets where practical. Use SVG for icons and vectors, and optimized PNG/WebP for raster assets.
 - Do not store credentials, real member data, or unlicensed assets.
-- When a design changes, record its Figma/source link, export date, and any route/component impact here. For a tabbed page, record every tab state and whether it changes the shared component/API contract. Also update `frontend/README.md` when the architecture, dependency set, routes, or data flow changes.
+- When a design changes, update its image and UX description together, and record its Figma/source link, export date, and any route/component impact here when available. For a tabbed page, record every tab state and whether it changes the shared component/API contract. Also update `frontend/README.md` when the architecture, dependency set, routes, or data flow changes.
