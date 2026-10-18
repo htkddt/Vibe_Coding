@@ -56,7 +56,7 @@ export function PostsPage() {
           <span className="posts-item__icon"><Icon name={post.type} size={24} /></span>
           <span className="posts-item__body"><span className="posts-item__title">{post.title}</span><span className="posts-item__excerpt">{post.excerpt}</span><span className="posts-item__author"><Avatar initials={post.author.split(' ').map(name => name[0]).join('').slice(0, 2)} size="sm" /><strong>{post.author}</strong><span aria-hidden="true">·</span><time dateTime={post.updatedAt}>{formatPostDate(post.updatedAt)}</time></span></span>
         </Link>
-        <div className="posts-item__actions"><span className={'post-status post-status--' + post.status}>{post.status === PostStatus.published ? 'Published' : 'Draft'}</span>{post.status === PostStatus.draft && <Link className="post-icon-button post-edit" to={'/posts/' + post.id + '/edit'} aria-label={'Edit ' + post.title}><Icon name="pen" size={18} /></Link>}<Icon name="arrow" size={17} className="posts-item__arrow" /></div>
+        <div className="posts-item__actions"><span className={'post-status post-status--' + post.status}>{post.status === PostStatus.published ? 'Published' : post.scheduledAt ? 'Scheduled' : 'Draft'}</span>{post.status === PostStatus.draft && <Link className="post-icon-button post-edit" to={'/posts/' + post.id + '/edit'} state={{ returnTo }} aria-label={'Edit ' + post.title}><Icon name="pen" size={18} /></Link>}<Icon name="arrow" size={17} className="posts-item__arrow" /></div>
       </article>)}</div>}
       </div>
     </Card>

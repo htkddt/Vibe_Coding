@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 390" role="img" aria-label="Training calendar illustration">
+  <rect width="700" height="390" rx="12" fill="#fbece9"/>
+  <circle cx="264" cy="157" r="119" fill="#f7d4d4"/>
+  <ellipse cx="362" cy="344" rx="205" ry="22" fill="#f2d2d0"/>
+  <path d="M209 317c-22-69-48-90-87-94 13 42 42 70 87 94Zm4-9c-2-67-12-100-39-119-8 40 6 81 39 119Z" fill="#9f2940"/>
+  <path d="M220 318c-16-43-35-69-64-83m59 74c-5-47-16-75-31-101" fill="none" stroke="#781c31" stroke-width="3"/>
+  <path d="M244 97 465 77q18-1 21 16l20 217q1 18-18 20H240q-20 0-18-18l11-198q1-16 11-17Z" fill="#8e1f35"/>
+  <path d="M242 112 459 97q17-1 18 16l-10 200q-1 15-17 15H231q-17 0-16-17l13-182q1-16 14-17Z" fill="#fff9f8"/>
+  <path d="m229 126 247-14-1 39-248 10Z" fill="#b3203b"/>
+  <g fill="none" stroke="#252a3b" stroke-width="7" stroke-linecap="round"><path d="M270 130c-15-20-9-43 3-44 11-1 13 11 13 19"/><path d="M341 126c-15-20-9-43 3-44 11-1 13 11 13 19"/><path d="M411 121c-15-20-9-43 3-44 11-1 13 11 13 19"/></g>
+  <g fill="#f5e0de" transform="skewX(-5)"><rect x="273" y="173" width="25" height="29" rx="4"/><rect x="307" y="171" width="25" height="29" rx="4"/><rect x="341" y="169" width="25" height="29" rx="4"/><rect x="375" y="167" width="25" height="29" rx="4"/><rect x="443" y="163" width="25" height="29" rx="4"/><rect x="271" y="215" width="25" height="29" rx="4"/><rect x="305" y="213" width="25" height="29" rx="4"/><rect x="339" y="211" width="25" height="29" rx="4"/><rect x="373" y="209" width="25" height="29" rx="4"/><rect x="441" y="205" width="25" height="29" rx="4"/><rect x="269" y="257" width="25" height="29" rx="4"/><rect x="337" y="253" width="25" height="29" rx="4"/><rect x="371" y="251" width="25" height="29" rx="4"/><rect x="405" y="249" width="25" height="29" rx="4"/><rect x="439" y="247" width="25" height="29" rx="4"/><rect x="267" y="299" width="25" height="29" rx="4"/><rect x="301" y="297" width="25" height="29" rx="4"/><rect x="335" y="295" width="25" height="29" rx="4"/></g>
+  <g fill="#cf5361" transform="skewX(-5)"><rect x="409" y="165" width="25" height="29" rx="4"/><rect x="407" y="207" width="25" height="29" rx="4"/><rect x="303" y="255" width="25" height="29" rx="4"/></g>
+  <circle cx="499" cy="280" r="48" fill="#fffafa"/><rect x="479" y="267" width="40" height="34" rx="5" fill="#a51e38"/><path d="M479 276h40m-31-14v8m22-8v8" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <path d="m517 136 8-31m3 48 24-20" fill="none" stroke="#ae2940" stroke-width="4" stroke-linecap="round"/>
+</svg>

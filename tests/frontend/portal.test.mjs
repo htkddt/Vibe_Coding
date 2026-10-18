@@ -3,8 +3,45 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { posts } from '../../frontend/src/mocks/posts.js';
 import { filterPosts } from '../../frontend/src/features/posts/postFilters.js';
+import { getPosts, restorePost, savePost, unpublishPost } from '../../frontend/src/features/posts/api/postsApi.js';
 import { getSettings, saveSettings } from '../../frontend/src/features/settings/api/settingsApi.js';
 import { addFeedPost, addPostComment, addUpcomingSession, googleMapsUrl, initialDashboard, loadDashboard, saveDashboard, togglePostLike } from '../../frontend/src/features/dashboard/dashboardStore.js';
+
+test('post workflow persists drafts, publishes, unpublishes and restores discarded changes', async () => {
+  const values = new Map();
+  globalThis.localStorage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
+  try {
+    const draft = await savePost({ id: 'test-post', title: 'Club update', content: 'A useful update', author: 'Tuan Kiet', type: 'file', status: 'draft' });
+    assert.equal((await getPosts()).find(post => post.id === draft.id).status, 'draft');
+    await savePost({ ...draft, title: 'Changed title' });
+    await restorePost(draft);
+    assert.equal((await getPosts()).find(post => post.id === draft.id).title, 'Club update');
+    const published = await savePost({ ...draft, status: 'published' });
+    assert.ok(published.publishedAt);
+    assert.equal((await unpublishPost(draft.id)).status, 'draft');
+    assert.equal((await getPosts()).find(post => post.id === draft.id).publishedAt, null);
+    await assert.rejects(savePost({ ...draft, title: ' ' }), /title/i);
+    await assert.rejects(savePost({ ...draft, content: '', status: 'published' }), /update/i);
+  } finally { delete globalThis.localStorage; }
+});
+
+test('scheduled posts become published when the browser next loads posts after their due time', async () => {
+  const values = new Map();
+  globalThis.localStorage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
+  try {
+    const future = new Date(Date.now() + 3600000).toISOString();
+    await savePost({ id: 'scheduled', title: 'Later', content: 'Future update', author: 'Tuan Kiet', type: 'file', status: 'draft', scheduledAt: future });
+    assert.equal((await getPosts()).find(post => post.id === 'scheduled').status, 'draft');
+    const stored = JSON.parse(values.get('179fc-posts-v1'));
+    stored.find(post => post.id === 'scheduled').scheduledAt = new Date(Date.now() - 1000).toISOString();
+    values.set('179fc-posts-v1', JSON.stringify(stored));
+    const published = (await getPosts()).find(post => post.id === 'scheduled');
+    assert.equal(published.status, 'published');
+    assert.equal(published.scheduledAt, null);
+    assert.ok(published.publishedAt);
+    await assert.rejects(savePost({ ...published, status: 'draft', scheduledAt: new Date(Date.now() - 1000).toISOString() }), /future/i);
+  } finally { delete globalThis.localStorage; }
+});
 
 test('post filters combine status, search and ordering without mutating the collection', () => {
   const original = posts.map(post => post.id);

@@ -28,7 +28,7 @@ export function TopBar({ onMenuClick }) {
   const go = (to) => { setMenuOpen(false); navigate(to); };
 
   return (
-    <header className={'top-bar top-bar--' + (pathname.split('/')[1] || 'dashboard')}>
+    <header className={'top-bar top-bar--' + (pathname.split('/')[1] || 'dashboard') + (pathname.startsWith('/posts/') ? ' top-bar--post-workflow' : '')}>
       <div className="top-bar__title"><button className="menu-toggle" aria-label="Open navigation" onClick={onMenuClick}><Icon name="menu" /></button><div><h1>{meta.title}</h1>{meta.subtitle && <p>{meta.subtitle}</p>}</div></div>
       <div className="top-bar__actions">
       <div className="user-menu-wrap" ref={menuRef}>
